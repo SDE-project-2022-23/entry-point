@@ -1,7 +1,6 @@
 import { Router } from "express";
 import loginRouter from "./login.route";
 import userRouter from "./users.route";
-import * as Auth from "../middleware/auth.middleware";
 
 /**
  * Routeur global de l'application. Utilise les routeurs des ressources.
@@ -13,7 +12,7 @@ globalRouter.use("/login", loginRouter);
 // globalRouter.use("/token", tokenRouter);
 globalRouter.use("/users", userRouter);
 // globalRouter.use("/tentatives", tentativeRouter);
-globalRouter.route("/test").get(Auth.authorize, (req, res) => {
+globalRouter.route("/test").get((req, res) => {
   res.status(200).json({ message: "Vous êtes connecté" });
 });
 
