@@ -68,6 +68,27 @@ paths:
           description: successful operation
       security:
         - bearerAuth: []
+  /recipes/calories:
+    post:
+      summary: get sum of calories for all ingredients
+      tags:
+        - Recipes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Ingredients"
+      responses:
+        "200":
+          # content:
+          #   application/json:
+          #     schema:
+          #       type: array
+          #       items:
+          #         $ref: "#/components/schemas/Recipes"
+          description: successful operation
 
 components:
   schemas:

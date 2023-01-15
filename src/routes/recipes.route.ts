@@ -10,6 +10,18 @@ const getRandRecipes = async (req: Request, res: Response) => {
   });
 };
 
+const getCaloriesSum = async (req: Request, res: Response) => {
+  axios
+    .post(`${process.env.INGREDIENTS_API}/ingredients`, req.body)
+    .then((response) => {
+      res.status(200).json(response.data);
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+};
+
 recipesRouter.get("/random", authorize, getRandRecipes);
+recipesRouter.post("/calories", getCaloriesSum);
 
 export default recipesRouter;
