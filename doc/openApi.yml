@@ -99,6 +99,9 @@ components:
         unit:
           type: string
           format: string
+        id:
+          type: number
+          format: number
     UserRegistration:
       required:
         - login
