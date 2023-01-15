@@ -66,6 +66,8 @@ paths:
                 items:
                   $ref: "#/components/schemas/Recipes"
           description: successful operation
+      security:
+        - bearerAuth: []
 
 components:
   schemas:
@@ -149,3 +151,8 @@ components:
         token:
           format: jwtToken
           type: string
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT # optional, arbitrary value for documentation purposes

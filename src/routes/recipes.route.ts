@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Request, Response, Router } from "express";
+import { authorize } from "src/middleware/auth.middleware";
 
 const recipesRouter = Router();
 
@@ -9,6 +10,6 @@ const getRandRecipes = async (req: Request, res: Response) => {
   });
 };
 
-recipesRouter.get("/random", getRandRecipes);
+recipesRouter.get("/random", authorize, getRandRecipes);
 
 export default recipesRouter;
