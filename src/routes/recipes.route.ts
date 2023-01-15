@@ -22,6 +22,6 @@ const getCaloriesSum = async (req: Request, res: Response) => {
 };
 
 recipesRouter.get("/random", authorize, getRandRecipes);
-recipesRouter.post("/calories", getCaloriesSum);
+recipesRouter.post("/calories", authorize, getCaloriesSum);
 
 export default recipesRouter;
