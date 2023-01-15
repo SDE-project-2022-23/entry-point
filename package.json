@@ -68,6 +68,7 @@
   },
   "dependencies": {
     "@types/bcrypt": "^5.0.0",
+    "axios": "^1.2.2",
     "bcrypt": "^5.0.1",
     "bcrypt-nodejs": "^0.0.3",
     "dotenv": "^16.0.0",
