@@ -1,5 +1,6 @@
 import { Router } from "express";
 import loginRouter from "./login.route";
+import recipesRouter from "./recipes.route";
 import userRouter from "./users.route";
 
 /**
@@ -7,11 +8,13 @@ import userRouter from "./users.route";
  */
 const globalRouter = Router();
 
+globalRouter.use("/recipes", recipesRouter);
+
 globalRouter.use("/login", loginRouter);
 // Pas encore implémenté car dans le front on peut demander à l'utilisateur de se connecter
 // globalRouter.use("/token", tokenRouter);
-globalRouter.use("/users", userRouter);
-// globalRouter.use("/tentatives", tentativeRouter);
+globalRouter.use("/user", userRouter);
+
 globalRouter.route("/test").get((req, res) => {
   res.status(200).json({ message: "Vous êtes connecté" });
 });

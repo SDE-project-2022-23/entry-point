@@ -1,21 +1,19 @@
-import { UserService } from "@services/user.service";
-import { User } from "@type/User";
+import axios from "axios";
 import { Request, Response, Router } from "express";
 
 const loginRouter = Router();
 
 const login = async (req: Request, res: Response) => {
-  // const user = req.body;
-  // UserService.getUserByLogin(user)
-  //   .then((userFind: User) => {
-  //     res.status(200).json({ token: "not implemented" });
-  //   })
-  //   .catch((err) => {
-  //     res.status(401).send({
-  //       message: "" + err,
-  //     });
-  //   });
-  return "not implemented";
+  axios
+    .post(`${process.env.AUTH_API}/login`, req.body)
+    .then((response) => {
+      res.status(200).json(response.data);
+    })
+    .catch((err) => {
+      res.status(401).send({
+        message: "password or login incorrect",
+      });
+    });
 };
 
 loginRouter.post("/", login);

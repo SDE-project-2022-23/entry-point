@@ -1,0 +1,182 @@
+openapi: 3.0.1
+info:
+  title: Entry point SDE
+  version: "1.0.0"
+  description: |-
+    Entry point for the SDE project
+
+servers:
+  - url: http://127.0.0.1:3001
+    description: Serveur local
+
+paths:
+  /login:
+    post:
+      summary: Authentification for user
+      operationId: loginUser
+      description: |-
+        Authenticate an user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginCredential"
+        required: true
+      tags:
+        - Authentification
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Token"
+          description: successful operation
+  /user:
+    post:
+      summary: Register user
+      operationId: registerUser
+      description: |-
+        use to register a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserRegistration"
+        required: true
+      tags:
+        - Users
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserModel"
+          description: successful operation
+  /recipes/random:
+    get:
+      summary: get random recipes
+      tags:
+        - Recipes
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Recipes"
+          description: successful operation
+      security:
+        - bearerAuth: []
+  /recipes/calories:
+    post:
+      summary: get sum of calories for all ingredients
+      tags:
+        - Recipes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Ingredients"
+      responses:
+        "200":
+          # content:
+          #   application/json:
+          #     schema:
+          #       type: array
+          #       items:
+          #         $ref: "#/components/schemas/Recipes"
+          description: successful operation
+
+components:
+  schemas:
+    Recipes:
+      type: object
+      properties:
+        title:
+          type: string
+          format: string
+        image:
+          type: string
+          format: string
+        instructions:
+          type: string
+          format: string
+        ingredients:
+          type: array
+          items:
+            $ref: "#/components/schemas/Ingredients"
+    Ingredients:
+      type: object
+      properties:
+        name:
+          type: string
+          format: string
+        quantity:
+          type: number
+          format: number
+        unit:
+          type: string
+          format: string
+        id:
+          type: number
+          format: number
+    UserRegistration:
+      required:
+        - login
+        - password
+      type: object
+      properties:
+        login:
+          format: string
+          type: string
+        password:
+          format: string
+          type: string
+          minLength: 6
+    UserModel:
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        login:
+          format: string
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      required:
+        - id
+        - login
+    LoginCredential:
+      required:
+        - login
+        - password
+      type: object
+      properties:
+        login:
+          format: string
+          type: string
+        password:
+          format: string
+          type: string
+          minLength: 6
+    Token:
+      required:
+        - token
+      type: object
+      properties:
+        token:
+          format: jwtToken
+          type: string
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT # optional, arbitrary value for documentation purposes
