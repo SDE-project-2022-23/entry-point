@@ -5,9 +5,14 @@ import { authorize } from "src/middleware/auth.middleware";
 const recipesRouter = Router();
 
 const getRandRecipes = async (req: Request, res: Response) => {
-  axios.get(`${process.env.RECIPES_API}/recipes/random`).then((response) => {
-    res.status(200).json(response.data);
-  });
+  axios
+    .get(`${process.env.RECIPES_API}/recipes/random`)
+    .then((response) => {
+      res.status(200).json(response.data);
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 };
 
 const getCaloriesSum = async (req: Request, res: Response) => {
